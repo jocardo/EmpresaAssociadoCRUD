@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SGRRM_HOMOLOGACAOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Associados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cpf" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DataNascimento" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Empresas" Relationship="Self.AssociadoEmpresa" FromRole="Associados" ToRole="Empresas" />
+  </EntityType>
+  <EntityType Name="Empresas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Associados" Relationship="Self.AssociadoEmpresa" FromRole="Empresas" ToRole="Associados" />
+  </EntityType>
+  <Association Name="AssociadoEmpresa">
+    <End Role="Associados" Type="Self.Associados" Multiplicity="*" />
+    <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="SGRRM_HOMOLOGACAOEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Associados" EntityType="Self.Associados" />
+    <EntitySet Name="Empresas" EntityType="Self.Empresas" />
+    <AssociationSet Name="AssociadoEmpresa" Association="Self.AssociadoEmpresa">
+      <End Role="Associados" EntitySet="Associados" />
+      <End Role="Empresas" EntitySet="Empresas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

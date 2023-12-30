@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SGRRM_HOMOLOGACAOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssociadoEmpresa">
+          <Key>
+            <PropertyRef Name="AssociadoId" />
+            <PropertyRef Name="EmpresaId" />
+          </Key>
+          <Property Name="AssociadoId" Type="int" Nullable="false" />
+          <Property Name="EmpresaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Associados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Cpf" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="DataNascimento" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Cnpj" Type="varchar" MaxLength="14" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Associado__Assoc__5E0D7A55">
+          <End Role="Associados" Type="Self.Associados" Multiplicity="1" />
+          <End Role="AssociadoEmpresa" Type="Self.AssociadoEmpresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Associados">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AssociadoEmpresa">
+              <PropertyRef Name="AssociadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Associado__Empre__5F019E8E">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="AssociadoEmpresa" Type="Self.AssociadoEmpresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AssociadoEmpresa">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SGRRM_HOMOLOGACAOModelStoreContainer">
+          <EntitySet Name="AssociadoEmpresa" EntityType="Self.AssociadoEmpresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Associados" EntityType="Self.Associados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Associado__Assoc__5E0D7A55" Association="Self.FK__Associado__Assoc__5E0D7A55">
+            <End Role="Associados" EntitySet="Associados" />
+            <End Role="AssociadoEmpresa" EntitySet="AssociadoEmpresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Associado__Empre__5F019E8E" Association="Self.FK__Associado__Empre__5F019E8E">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="AssociadoEmpresa" EntitySet="AssociadoEmpresa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SGRRM_HOMOLOGACAOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Associados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cpf" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataNascimento" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresas" Relationship="Self.AssociadoEmpresa" FromRole="Associados" ToRole="Empresas" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Associados" Relationship="Self.AssociadoEmpresa" FromRole="Empresas" ToRole="Associados" />
+        </EntityType>
+        <Association Name="AssociadoEmpresa">
+          <End Role="Associados" Type="Self.Associados" Multiplicity="*" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SGRRM_HOMOLOGACAOEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Associados" EntityType="Self.Associados" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" />
+          <AssociationSet Name="AssociadoEmpresa" Association="Self.AssociadoEmpresa">
+            <End Role="Associados" EntitySet="Associados" />
+            <End Role="Empresas" EntitySet="Empresas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SGRRM_HOMOLOGACAOModelStoreContainer" CdmEntityContainer="SGRRM_HOMOLOGACAOEntities3">
+          <EntitySetMapping Name="Associados">
+            <EntityTypeMapping TypeName="SGRRM_HOMOLOGACAOModel.Associados">
+              <MappingFragment StoreEntitySet="Associados">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cpf" ColumnName="Cpf" />
+                <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="SGRRM_HOMOLOGACAOModel.Empresas">
+              <MappingFragment StoreEntitySet="Empresas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cnpj" ColumnName="Cnpj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AssociadoEmpresa" TypeName="SGRRM_HOMOLOGACAOModel.AssociadoEmpresa" StoreEntitySet="AssociadoEmpresa">
+            <EndProperty Name="Associados">
+              <ScalarProperty Name="Id" ColumnName="AssociadoId" />
+            </EndProperty>
+            <EndProperty Name="Empresas">
+              <ScalarProperty Name="Id" ColumnName="EmpresaId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SGRRM_HOMOLOGACAOModelStoreContainer" CdmEntityContainer="SGRRM_HOMOLOGACAOEntities3">
+    <EntitySetMapping Name="Associados">
+      <EntityTypeMapping TypeName="SGRRM_HOMOLOGACAOModel.Associados">
+        <MappingFragment StoreEntitySet="Associados">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Cpf" ColumnName="Cpf" />
+          <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empresas">
+      <EntityTypeMapping TypeName="SGRRM_HOMOLOGACAOModel.Empresas">
+        <MappingFragment StoreEntitySet="Empresas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Cnpj" ColumnName="Cnpj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AssociadoEmpresa" TypeName="SGRRM_HOMOLOGACAOModel.AssociadoEmpresa" StoreEntitySet="AssociadoEmpresa">
+      <EndProperty Name="Associados">
+        <ScalarProperty Name="Id" ColumnName="AssociadoId" />
+      </EndProperty>
+      <EndProperty Name="Empresas">
+        <ScalarProperty Name="Id" ColumnName="EmpresaId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SGRRM_HOMOLOGACAOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AssociadoEmpresa">
+    <Key>
+      <PropertyRef Name="AssociadoId" />
+      <PropertyRef Name="EmpresaId" />
+    </Key>
+    <Property Name="AssociadoId" Type="int" Nullable="false" />
+    <Property Name="EmpresaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Associados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Cpf" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="DataNascimento" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Empresas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Cnpj" Type="varchar" MaxLength="14" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Associado__Assoc__5E0D7A55">
+    <End Role="Associados" Type="Self.Associados" Multiplicity="1" />
+    <End Role="AssociadoEmpresa" Type="Self.AssociadoEmpresa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Associados">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssociadoEmpresa">
+        <PropertyRef Name="AssociadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Associado__Empre__5F019E8E">
+    <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+    <End Role="AssociadoEmpresa" Type="Self.AssociadoEmpresa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssociadoEmpresa">
+        <PropertyRef Name="EmpresaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SGRRM_HOMOLOGACAOModelStoreContainer">
+    <EntitySet Name="AssociadoEmpresa" EntityType="Self.AssociadoEmpresa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Associados" EntityType="Self.Associados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Associado__Assoc__5E0D7A55" Association="Self.FK__Associado__Assoc__5E0D7A55">
+      <End Role="Associados" EntitySet="Associados" />
+      <End Role="AssociadoEmpresa" EntitySet="AssociadoEmpresa" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Associado__Empre__5F019E8E" Association="Self.FK__Associado__Empre__5F019E8E">
+      <End Role="Empresas" EntitySet="Empresas" />
+      <End Role="AssociadoEmpresa" EntitySet="AssociadoEmpresa" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
