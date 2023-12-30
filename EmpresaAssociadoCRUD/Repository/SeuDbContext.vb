@@ -4,7 +4,7 @@ Public Class SeuDbContext
     Inherits DbContext
 
     Public Sub New()
-        MyBase.New("Data Source=10.221.121.240; Initial Catalog=SGRRM_HOMOLOGACAO; uid=sa; pwd=#BJ_live2021; language=portuguese; MultipleActiveResultSets=True") ' Substitua pelo nome real da sua string de conexão
+        MyBase.New("SuaStringConexão") ' Substitua pelo nome real da sua string de conexão
     End Sub
 
     Public Sub New(connectionString As String)
